@@ -1,0 +1,109 @@
+# ---> WHICH ENDINGS DO THE SOURCE FILES HAVE ?
+ENDING_SOURCE := cpp
+ENDING_HEADER := hpp
+
+# ---> Compiler options
+CC              := gcc
+CXX             := g++
+CFLAGS          := -pipe -mcpu=i686 -march=i686 -O3 -fomit-frame-pointer -Wall -W -g -DDEBUG -D_REENTRANT
+CXXFLAGS        := -pipe -O3 -Wall -Wextra -W -g -pthread -std=c++0x
+INCPATH         := -I../../src/library -I../../src/server
+
+# ---> Linker options
+LINK            := g++
+LFLAGS          := -pthread # -fPIC
+APP_LIBS        := -lgraphiteproxy
+LIBS            := $(LIBS) -lboost_thread -lboost_system -lboost_regex -lboost_timer -lboost_filesystem -lboost_date_time -lpthread -lboost_chrono
+LIBPATH         := $(LIBPATH) -L../../lib/ -L/usr/local/lib
+LFFLAGS         := -L/usr/local/lib
+
+ifeq ($(EXCLUDE_APP_LIB),true)
+	APP_LIBS :=
+endif
+
+# ---> Options for a shared library
+SHARE_LIB_FLAG  := -shared -W1,-soname,
+SHARE_COMP_FLAG := -fPIC
+SHARE_LINK_FLAG := -rdynamic
+MAJOR           := 1
+MINOR           := 0
+PATCH           := 0
+
+# ---> Generates object files of all *.c, *.cc, *.cpp, *.h etc. files thar are found in directory
+HEADERS           := $(shell find . -name "*.$(ENDING_HEADER)" )
+SOURCES           := $(shell find . -name "*.$(ENDING_SOURCE)" )
+OBJECTS           := $(patsubst %.$(ENDING_SOURCE),%.o,$(SOURCES))
+DEPENDENCIES      := $(patsubst %.$(ENDING_SOURCE),%.d,$(SOURCES))
+CLEANABLE_OBJECTS := $(OBJECTS)
+
+# --> Tools
+LN              := ln -s
+TAR             := tar -cf
+GZIP            := gzip -9f
+BZIP            := bzip2
+RM              := rm -vf
+TAGS            := ctags --extra=+q
+CP              := cp -vf
+LDCONFIG        := /sbin/ldconfig
+RANLIB          := ranlib
+AR              := ar crv
+MV              := mv
+
+# ---> Implicit rules
+
+.SUFFIXES: .cpp .cxx .cc .C .c
+
+.cpp.o:
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o $@ $<
+.cxx.o:
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o $@ $<
+.cc.o:
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o $@ $<
+.C.o:
+	$(CC) -c  $(CCFLAGS) $(INCPATH)  -o $@ $<
+.c.o:
+	$(CC) -c  $(CFLAGS) $(INCPATH)   -o $@ $<
+
+# ---> Default and such
+.PHONY : all objects clean staticlib sharedlib executable
+all : $(TARGETTYPE)
+
+# ---> Dependency generation
+
+%.d: %.cpp
+	$(CXX) -M $(CXXFLAGS) $(INCPATH) -o $@ $<
+	sed -i 's!\.o[ :]*!.o $@ :!' $@
+
+-include $(DEPENDENCIES)
+
+# Generic target
+executable: $(OBJECTS)
+	$(LINK) $(LFLAGS) -o $(TARGETPATH)$(TARGETNAME) $(OBJECTS) $(LIBPATH) $(APP_LIBS) $(LIBS)
+
+sharedlib: $(OBJECTS)
+	$(LINK) $(LFLAGS) $(SHARE_LIB_FLAG)$(TARGETNAME) -o $(TARGETNAME).$(MAJOR).$(MINOR).$(PATCH) $(OBJECTS) $(LIBPATH) $(LIBS)
+	$(LN) $(TARGETNAME).$(MAJOR).$(MINOR).$(PATCH) $(TARGETNAME)
+	$(CP) $(TARGETNAME)* $(TARGETPATH)
+
+staticlib: $(OBJECTS)
+	$(AR) $(TARGETNAME) $(OBJECTS)
+	$(RANLIB) $(TARGETNAME)
+	$(MV) $(TARGETNAME) $(TARGETPATH)$(TARGETNAME)
+
+depend:
+	$(CXX) ${INCPATH} $(DEP_FLAG) $(SOURCES) > $(DEPS)
+
+objects: $(OBJECTS)
+
+clean:
+	$(RM) $(TARGETPATH)$(TARGETNAME)*
+	$(RM) $(CLEANABLE_OBJECTS)
+	$(RM) *.rpo
+	$(RM) *~ core
+
+cleaner: clean
+	$(RM) $(DEPENDENCIES)
+	$(RM) *~ core
+
+run:
+	$(TARGETPATH)$(TARGETNAME)

@@ -1,0 +1,61 @@
+<graphite-proxy>
+
+	<server>
+		<address>127.0.0.1</address>
+		<port>8090</port>
+		<udp_port>8099</udp_port>
+	</server>
+
+	<client>
+		<address>127.0.0.1</address>
+		<port>9999</port>
+	</client>
+
+	<buffer>
+		<flush>
+			<size>1000</size>
+			<time>1</time> <!-- Flush time is in seconds -->
+		</flush>
+
+		<drop>
+      <oldest>true</oldest>
+    </drop>
+
+    <cleaning>
+      <activated>false</activated>
+      <time>300</time>
+      <max-empty-time>3</max-empty-time>
+    </cleaning>
+	</buffer>
+
+	<logs>
+    <destination>integration_logs</destination>
+		<level>debug</level>
+		<colors>true</colors>
+	</logs>
+
+	<stats>
+		<enabled>false</enabled>
+		<time>2</time> <!-- Timer wake up time (in seconds) -->
+	</stats>
+
+	<maths>
+		<enabled>true</enabled>
+		<size>9999</size>
+		<time>1</time>
+	</maths>
+
+	<router>
+    <save>false</save>
+    <file>save_messages.gp</save>
+    <maths>maths_messages.gp</maths>
+    <pass-through>pass_through_messages.gp</pass-through>
+  </router>
+
+  <signals>
+    <current-state>
+      <file>current_state.gp</file>
+    </current-state>
+  </signals>
+
+</graphite-proxy>

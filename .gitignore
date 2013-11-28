@@ -1,0 +1,46 @@
+# Compiled Object files
+*.slo
+*.lo
+*.o
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.d
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+
+# Binaries
+graphite-proxy
+tests/units/unittests
+*core
+
+# Phyton files
+*.pyc
+
+# Logs
+*.log
+
+# Documentation
+docs/doxygen/*
+.html
+
+# Graphite Proxy Server generated file
+*.gp
+
+# Other stuffs
+performances
+*.tmp
+
+# Qt Creator stuffs
+*.creator.user
+GraphiteProxy.creator
+GraphiteProxy.config
+GraphiteProxy.files
+GraphiteProxy.includes
+
+# Vim temp files
+*.swp

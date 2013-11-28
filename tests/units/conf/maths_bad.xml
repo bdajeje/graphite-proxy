@@ -1,0 +1,19 @@
+<maths>
+
+	<category name="test.1">
+
+		<sum>
+			<count>3</count>
+		<sum><!-- Syntax error here -->
+
+	</category>
+
+	<category name="test.2">
+
+		<sum>
+			<time>5</time>
+		</sum>
+
+	</category>
+
+</maths>

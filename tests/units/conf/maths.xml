@@ -1,0 +1,39 @@
+<maths>
+
+	<category name="test_1\.[a-z0-9]+\.[A-Z]*">
+		<sum>3</sum>
+	</category>
+
+	<category name="test_2\.nani">
+		<sum>3</sum>
+		<average>4</average>
+	</category>
+
+	<category name="test_3\.[0-9]+">
+		<sum>3</sum>
+		<sum>3m</sum>
+		<sum>3s</sum>
+		<sum>3h</sum>
+		<sum>3h5m78s</sum>
+		<average>3</average>
+
+<!--
+		<average>
+			<time>30</time>
+		</average>
+-->
+	</category>
+
+	<category name="test_4\.[a-z0-9]+\.[A-Z]*" except="test_4\.[a-z0-9]+\.NANI">
+		<sum>3</sum>
+	</category>
+
+	<category name="test_5.maths.[0-9]+" except="test_5.maths.5">
+		<sum>3</sum>
+	</category>
+
+	<category name="maths.[0-9]+">
+		<sum>9999</sum>
+	</category>
+
+</maths>

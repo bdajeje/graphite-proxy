@@ -1,0 +1,25 @@
+<maths>
+
+	<category name="test.integration.maths.1">
+		<sum>3</sum>
+		<min>3</min>
+		<max>3</max>
+		<average>3</average>
+		<median>3</median>
+		<variance>3</variance>
+		<deviation>3</deviance>
+		<tiles value="50" below="true" multiplicator="100">3</tiles>
+	</category>
+
+	<category name="test.integration.maths.2">
+		<sum>2s</sum>
+		<min>2s</min>
+		<max>2s</max>
+		<average>2s</average>
+		<median>2s</median>
+		<variance>2s</variance>
+		<deviation>2s</deviance>
+		<tiles value="50" below="true" multiplicator="100">2s</tiles>
+	</category>
+
+</maths>

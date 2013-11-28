@@ -1,0 +1,11 @@
+<maths>
+
+  <category name="ads_server\.[a-zA-Z0-9._]+\.nbr">
+    <sum>2</sum>
+  </category>
+
+  <category name="ads_server\.[a-zA-Z0-9._]+\.elapsed_time">
+    <average>2</average>
+  </category>
+
+</maths>

@@ -1,0 +1,67 @@
+<graphite-proxy>
+
+	<server>
+		<address>127.0.0.1</address>
+		<port>8080</port>
+		<udp_port>8099</udp_port>
+	</server>
+
+	<client>
+		<address>127.0.0.1</address>
+		<port>8081</port>
+	</client>
+
+	<buffer>
+		<flush>
+			<size>10000</size>
+			<time>2</time> <!-- Flush time is in seconds -->
+		</flush>
+
+		<drop>
+			<oldest>1</oldest>
+			<!--<oldest>0</oldest>-->
+		</drop>
+
+		<cleaning>
+      <activated>true</activated>
+      <time>3</time>
+      <max-empty-time>3</max-empty-time>
+    </cleaning>
+	</buffer>
+
+	<maths>
+		<enabled>true</enabled>
+		<size>9999</size>
+		<time>1</time>
+	</maths>
+
+	<logs>
+    <destination>stdout</destination>
+		<!--<level>QUIET</level>-->
+		<!--<level>ERROR</level>-->
+		<!--<level>WARNING</level>-->
+		<level>INFO</level>
+		<!--<level>DEBUG</level>-->
+		<colors>false</colors>
+	</logs>
+
+	<stats>
+    <enabled>true</enabled>
+    <time>1</time> <!-- Timer wake up time (in seconds) -->
+  </stats>
+
+  <router>
+    <time>1</time>
+    <save>false</save>
+    <file>save_messages.gp</save>
+    <maths>maths_messages.gp</maths>
+    <pass-through>pass_through_messages.gp</pass-through>
+  </router>
+
+  <signals>
+    <current-state>
+      <file>current_state.gp</file>
+    </current-state>
+  </signals>
+
+</graphite-proxy>

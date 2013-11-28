@@ -1,0 +1,24 @@
+<maths>
+
+<!-- Ads Servers metrics -->
+
+  <!-- Let's sum counters once per minute -->
+  <category name="ads_server\.[a-zA-Z0-9._]+\.nbr">
+    <variance>3</variance>
+    <deviation>3</deviation>
+  </category>
+
+  <!-- Let's calculate the average of process time of everything once per minute -->
+  <category name="ads_server\.[a-zA-Z0-9._]+\.elapsed_time">
+    <average>10s</average>
+  </category>
+
+
+<!-- Graphite Proxies metrics -->
+
+  <!-- Let's sum counters once per minute -->
+  <category name="graphite_proxy\.[a-zA-Z0-9._]+\.nbr">
+    <sum>5s</sum>
+  </category>
+
+</maths>
