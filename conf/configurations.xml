@@ -3,7 +3,7 @@
   <server>
     <address>127.0.0.1</address>
     <port>8090</port>
-    <udp_port>8099</udp_port>
+    <udp_port>8091</udp_port>
   </server>
 
   <client>
@@ -44,7 +44,7 @@
   </stats>
 
   <maths>
-    <enabled>true</enabled>
+    <enabled>false</enabled>
     <size>9999</size>
     <time>1</time>
   </maths>

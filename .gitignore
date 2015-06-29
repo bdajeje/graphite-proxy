@@ -23,6 +23,7 @@ tests/units/unittests
 
 # Logs
 *.log
+wgp_local_logs
 
 # Documentation
 docs/doxygen/*
